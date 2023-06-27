@@ -143,17 +143,17 @@ class EstudianteDetalle(DetailView):
 
 class EstudianteCreacion(CreateView):
       model = Estudiante
-      success_url = reverse_lazy("/AppCoder/estudiante/list")
+      success_url = reverse_lazy("estudianteList")
       fields = ['nombre','apellido']
 
 class EstudianteUpdate(UpdateView):
       model = Estudiante
-      success_url = reverse_lazy("/AppCoder/estudiante/list")
+      success_url = reverse_lazy("estudianteList")
       fields = ['nombre','apellido']
 
 class EstudianteDelete(DeleteView):
       model= Estudiante
-      success_url=reverse_lazy("/AppCoder/estudiante/list")
+      success_url=reverse_lazy("estudianteList")
 
 class ProfesorList(ListView):
       model = Profesor
@@ -165,16 +165,17 @@ class ProfesorDetalle(DetailView):
 
 class ProfesorCreacion(CreateView):
       model = Profesor
-      success_url = reverse_lazy("/AppCoder/profesor/list")
+      success_url = reverse_lazy("profesorList")
       fields = ['nombre','apellido','profesion','mail']
 
 class ProfesorUpdate(UpdateView):
       model = Profesor
-      success_url = reverse_lazy("/AppCoder/profesor/list")
+      success_url = reverse_lazy("profesorList")
       fields = ['nombre','apellido','profesion','mail']
+
 class ProfesorDelete(DeleteView):
       model= Profesor
-      success_url=reverse_lazy("/AppCoder/profesor/list")
+      success_url=reverse_lazy("profesorList")
 
 def login_request(request):
       if request.method =="POST":
