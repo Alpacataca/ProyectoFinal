@@ -10,9 +10,9 @@
         <li>
             <p>NOMBRE: {{profesor.nombre}}</p>
             <p>
-                <a href = "{% url 'Detail' profesor.id %}">Ver</a>
-                <a href = "{% url 'Edit' profesor.id %}">Editar</a>
-                <a href = "{% url 'Delete' profesor.id %}">Borrar</a>
+                <a href = "{% url 'profesorDetail' profesor.id %}">Ver</a>
+                <a href = "{% url 'profesorEdit' profesor.id %}">Editar</a>
+                <a href = "{% url 'profesorDelete' profesor.id %}">Borrar</a>
             </p>
         </li>
         {% endfor %}

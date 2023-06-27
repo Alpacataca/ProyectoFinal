@@ -5,6 +5,8 @@ from django.views.generic import ListView
 from django.views.generic.detail import DetailView
 from django.views.generic.edit import CreateView,UpdateView,DeleteView
 from django.urls import reverse_lazy
+from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
+from django.contrib.auth import login, logout, authenticate
 # Create your views here.
 
 def inicio(request):
@@ -117,17 +119,17 @@ class CursoDetalle(DetailView):
 
 class CursoCreacion(CreateView):
       model = Curso
-      success_url = "/AppCoder/curso/list"
+      success_url = reverse_lazy("/AppCoder/curso/list")
       fields = ['nombre','camada']
 
 class CursoUpdate(UpdateView):
       model = Curso
-      success_url = "/AppCoder/curso/list"
+      success_url = reverse_lazy("/AppCoder/curso/list")
       fields = ['nombre','camada']
 
 class CursoDelete(DeleteView):
       model= Curso
-      success_url="/AppCoder/curso/list"
+      success_url=reverse_lazy("/AppCoder/curso/list")
 
 
 
@@ -141,17 +143,17 @@ class EstudianteDetalle(DetailView):
 
 class EstudianteCreacion(CreateView):
       model = Estudiante
-      success_url = "/AppCoder/estudiante/list"
+      success_url = reverse_lazy("/AppCoder/estudiante/list")
       fields = ['nombre','apellido']
 
 class EstudianteUpdate(UpdateView):
       model = Estudiante
-      success_url = "/AppCoder/estudiante/list"
+      success_url = reverse_lazy("/AppCoder/estudiante/list")
       fields = ['nombre','apellido']
 
 class EstudianteDelete(DeleteView):
       model= Estudiante
-      success_url="/AppCoder/estudiante/list"
+      success_url=reverse_lazy("/AppCoder/estudiante/list")
 
 class ProfesorList(ListView):
       model = Profesor
@@ -163,13 +165,48 @@ class ProfesorDetalle(DetailView):
 
 class ProfesorCreacion(CreateView):
       model = Profesor
-      success_url = "/AppCoder/profesor/list"
+      success_url = reverse_lazy("/AppCoder/profesor/list")
       fields = ['nombre','apellido','profesion','mail']
 
 class ProfesorUpdate(UpdateView):
       model = Profesor
-      success_url = "/AppCoder/profesor/list"
+      success_url = reverse_lazy("/AppCoder/profesor/list")
       fields = ['nombre','apellido','profesion','mail']
 class ProfesorDelete(DeleteView):
       model= Profesor
-      success_url="/AppCoder/profesor/list"
+      success_url=reverse_lazy("/AppCoder/profesor/list")
+
+def login_request(request):
+      if request.method =="POST":
+            form = AuthenticationForm(request,data = request.POST)
+            if form.is_valid():
+                  usuario = form.cleaned_data.get('username')
+                  contra = form.cleaned_data.get('password')
+
+                  user = authenticate(username = usuario, password = contra)
+
+
+                  if user is not None:
+                        login(request,user)
+                        return render (request, "AppCoder/inicio.html",{"mensaje":f"Bienvenido{usuario}"})
+                  else:
+                        return render (request, "AppCoder/inicio.html", {"mensaje": "Error, datos incorrectos"})
+            else: 
+                  return render(request,"AppCoder/inicio.html", {"mensaje":"Error, formulario erroneo"})
+            
+      form = AuthenticationForm()
+      return render (request, "AppCoder/login.html",{'form':form})
+
+def register(request):
+      if request.method == 'POST':
+            form = UserCreationForm(request.POST)
+            if form.is_valid():
+                  username = form.cleaned_data['username']
+                  form.save()
+                  return render (request, "AppCoder/inicio.html" , {"mensaje":"Usuario Creado:)"})
+      
+      else:
+            form = UserCreationForm()
+      
+      return render(request,"AppCoder/registro.html", {"form":form})
+
