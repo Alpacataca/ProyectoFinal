@@ -1,0 +1,21 @@
+{% extends "AppCoder/padre.html" %}
+{% load static %}
+{% block contenidoQueCambia %}
+    <title>Profesor List</title>
+</head>
+<body>
+    <h1>Cursos de Coder - Python</h1>
+    <ul>
+        {% for profesor in object_list %}
+        <li>
+            <p>NOMBRE: {{profesor.nombre}}</p>
+            <p>
+                <a href = "{% url 'Detail' profesor.id %}">Ver</a>
+                <a href = "{% url 'Edit' profesor.id %}">Editar</a>
+                <a href = "{% url 'Delete' profesor.id %}">Borrar</a>
+            </p>
+        </li>
+        {% endfor %}
+    </ul>
+</body>
+{% endblock %}
