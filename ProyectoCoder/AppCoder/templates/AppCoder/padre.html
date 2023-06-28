@@ -6,7 +6,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
         <meta name="description" content="" />
         <meta name="author" content="" />
-        <title>Tercer pre-entrega Perez</title>
+        <title>Proyecto Final Perez</title>
         <!-- Favicon-->
         <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
         <!-- Bootstrap icons-->
@@ -26,11 +26,12 @@
                 <a class="navbar-brand" href="{% url 'profesorList' %}">Lista de profes</a>
                 <a class="navbar-brand" href="{% url 'BusquedaCurso' %}">Busqueda Cursos</a>
                 {% if not request.user.is_authenticated %}
-                <a class="btn btn-primary" href ="{%url 'Login' %}">INICIAR</a>
+                <a class="btn btn-primary" href ="{%url 'Login' %}">LOG IN</a>
                 {% endif %}
                 {% if request.user.is_authenticated %}
-                <img src = "request.user.avatar.imagen.url" />
+                <img src = "{{ request.user.avatar.imagen.url }}" style="width: 60px; height:50px;" class="rounded-circle img-fluid" />
                 <p class = "text-muted small mb-4 mb-lg-0"> Hola, {{user.username}}!</p>
+                <a class="btn btn-primary" href ="{%url 'Logout' %}">LOG OUT</a>
                 {% endif %}
             </div>
 </nav>
@@ -62,13 +63,7 @@
                 <div class="row">
                     <div class="col-lg-6 h-100 text-center text-lg-start my-auto">
                         <ul class="list-inline mb-2">
-                            <li class="list-inline-item"><a href="#!">About</a></li>
-                            <li class="list-inline-item">⋅</li>
-                            <li class="list-inline-item"><a href="#!">Contact</a></li>
-                            <li class="list-inline-item">⋅</li>
-                            <li class="list-inline-item"><a href="#!">Terms of Use</a></li>
-                            <li class="list-inline-item">⋅</li>
-                            <li class="list-inline-item"><a href="#!">Privacy Policy</a></li>
+                            <li class="list-inline-item"><a href="{% url 'Acercademi' %}">About me</a></li>
                         </ul>
                         <p class="text-muted small mb-4 mb-lg-0">&copy; Agustin's Perez Website 2023. All Rights Reserved.</p>
                     </div>

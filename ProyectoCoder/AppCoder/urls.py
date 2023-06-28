@@ -11,6 +11,7 @@ urlpatterns = [
     path('profesores', views.profesores, name="Profesores"),
     path('estudiantes', views.estudiantes, name="Estudiantes"),
     path('busquedaCurso', views.buscar_curso, name = "BusquedaCurso"),
+    path ('acercademi',views.acercademi, name = "Acercademi"),
 #CRUD CURSO
     path('curso/list', views.CursoList.as_view(),name = 'cursoList'),
     path(r'^(?P<pk>\d+)$',views.CursoDetalle.as_view(),name='cursoDetail'),
@@ -34,7 +35,7 @@ urlpatterns = [
     path('register', views.register, name='Register'),
     path('logout', LogoutView.as_view(template_name='AppCoder/logout.html'), name='Logout'),
     path('editarPerfil', views.editarPerfil, name="EditarPerfil"),
-    path('agregarAvatar',views.agregarAvatar, name = "AgregarAvatar"),
+    
 
 ]
 

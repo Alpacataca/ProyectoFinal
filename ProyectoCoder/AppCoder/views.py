@@ -24,7 +24,8 @@ def profesores(request):
 def estudiantes(request):
     return render(request,'AppCoder/estudiantes.html')
 
- 
+def acercademi(request):
+      return render(request,'AppCoder/acercademi.html')
 def cursos(request):
  
       if request.method == "POST":
@@ -213,8 +214,6 @@ def register(request):
       
       return render(request,"AppCoder/registro.html" , {"form":form})
 
-def inicio(request):
-      return render(request, "AppCoder/inicio.html")
 
 
 @login_required
@@ -242,19 +241,7 @@ def editarPerfil(request):
 
 
 
-@login_required
-def agregarAvatar(request):
-      if request.method =="POST":
-            miFormulario = AvatarFormulario(request.POST, request.FILES)
 
-            if miFormulario.is_valid:
-                  u = User.objects.get(username = request.user)
-                  avatar = Avatar(user = u,imagen= miFormulario.cleaned_data['imagen'])
-                  avatar.save
-                  return render(request, "AppCoder/inicio.html")
-      else:
-            miFormulario = AvatarFormulario()
-      return render(request, "AppCoder/agregarAvatar.html",{"miFormulario":miFormulario})
 
 
 
