@@ -10,22 +10,24 @@ from django.contrib.auth import login, logout, authenticate
 from AppCoder.forms import CursoFormulario,ProfesoresFormulario,EstudiantesFormulario,BuscaCursoForm,UserRegisterForm,UserEditForm
 from AppCoder.models import Curso,Profesor,Estudiante,Avatar
 from django.contrib.auth.decorators import login_required
-
+from django.contrib.auth.models import User
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 def inicio(request):
     return render(request,"AppCoder/inicio.html")
-
+@login_required
 def curso(request):
     return render(request,'AppCoder/cursos.html')
-
+@login_required
 def profesores(request):
     return render(request,'AppCoder/profesores.html')
-
+@login_required
 def estudiantes(request):
     return render(request,'AppCoder/estudiantes.html')
-
+@login_required
 def acercademi(request):
       return render(request,'AppCoder/acercademi.html')
+@login_required
 def cursos(request):
  
       if request.method == "POST":
@@ -41,7 +43,7 @@ def cursos(request):
  
       return render(request, "AppCoder/cursos.html", {"miFormulario": miFormulario})
 
-
+@login_required
 def profesores(request):
  
       if request.method == "POST":
@@ -56,7 +58,7 @@ def profesores(request):
             miFormulario = ProfesoresFormulario()
  
       return render(request, "AppCoder/profesores.html", {"miFormulario": miFormulario})
-
+@login_required
 def estudiantes(request):
  
       if request.method == "POST":
@@ -72,10 +74,10 @@ def estudiantes(request):
  
       return render(request, "AppCoder/estudiantes.html", {"miFormulario": miFormulario})
 
-
+@login_required
 def busquedacamada(request):
       return render(request, "AppCoder/busquedaCamada.html")
-
+@login_required
 def buscar(request):
       if request.GET:
             camada = request.GET['camada']
@@ -86,7 +88,7 @@ def buscar(request):
             respuesta = "No se asignaron datos a la casilla"
 
       return render(request,"AppCoder/inicio.html", {"respuesta":respuesta})
-
+@login_required
 def buscar_curso(request):
       if request.method=="POST":
             busca_curso = BuscaCursoForm(request.POST)
@@ -241,7 +243,19 @@ def editarPerfil(request):
 
 
 
+@login_required
+def agregarAvatar(request):
+      if request.method =="POST":
+            miFormulario = AvatarFormulario(request.POST, request.FILES)
 
+            if miFormulario.is_valid:
+                  u = User.objects.get(username = request.user)
+                  avatar = Avatar(user = u,imagen= miFormulario.cleaned_data['imagen'])
+                  avatar.save
+                  return render(request, "AppCoder/inicio.html")
+      else:
+            miFormulario = AvatarFormulario()
+      return render(request, "AppCoder/agregarAvatar.html",{"miFormulario":miFormulario})
 
 
 

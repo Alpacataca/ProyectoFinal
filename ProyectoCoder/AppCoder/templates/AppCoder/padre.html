@@ -27,6 +27,7 @@
                 <a class="navbar-brand" href="{% url 'BusquedaCurso' %}">Busqueda Cursos</a>
                 {% if not request.user.is_authenticated %}
                 <a class="btn btn-primary" href ="{%url 'Login' %}">LOG IN</a>
+                <a class="btn btn-primary" href ="{%url 'Register' %}">Registrate</a>
                 {% endif %}
                 {% if request.user.is_authenticated %}
                 <img src = "{{ request.user.avatar.imagen.url }}" style="width: 60px; height:50px;" class="rounded-circle img-fluid" />
