@@ -25,7 +25,13 @@
                 <a class="navbar-brand" href="{% url 'estudianteList' %}">Lista de estudiantes</a>
                 <a class="navbar-brand" href="{% url 'profesorList' %}">Lista de profes</a>
                 <a class="navbar-brand" href="{% url 'BusquedaCurso' %}">Busqueda Cursos</a>
-                
+                {% if not request.user.is_authenticated %}
+                <a class="btn btn-primary" href ="{%url 'Login' %}">INICIAR</a>
+                {% endif %}
+                {% if request.user.is_authenticated %}
+                <img src = "{{(Avatar.objects.filter(user = request.user.id))[0].imagen.url}}" />
+                <p class = "text-muted small mb-4 mb-lg-0"> Hola, {{user.username}}!</p>
+                {% endif %}
             </div>
 </nav>
 

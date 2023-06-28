@@ -2,6 +2,8 @@ from django.urls import path
 
 from AppCoder import views
 from django.contrib.auth.views import LogoutView
+from django.conf import settings
+from django.conf.urls.static import static
 urlpatterns = [
    #basic
     path('inicio', views.inicio, name="Inicio"), 
@@ -27,10 +29,14 @@ urlpatterns = [
     path(r'profesor/^nuevo$',views.ProfesorCreacion.as_view(),name='New'),
     path(r'profesor/^editar/(?P<pk>\d+)$',views.ProfesorUpdate.as_view(),name='profesorEdit'),
     path(r'profesor/^borrar/(?P<pk>\d+)$',views.ProfesorDelete.as_view(),name='profesorDelete'),
-    #login, logout y register
+    #login, logout, register y useredit
     path('login', views.login_request, name="Login"),
     path('register', views.register, name='Register'),
     path('logout', LogoutView.as_view(template_name='AppCoder/logout.html'), name='Logout'),
+    path('editarPerfil', views.editarPerfil, name="EditarPerfil"),
+    path('agregarAvatar',views.agregarAvatar, name = "AgregarAvatar"),
 
 ]
 
+#para imagenes
+urlpatterns+= static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)

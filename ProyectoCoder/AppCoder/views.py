@@ -5,10 +5,10 @@ from django.views.generic import ListView
 from django.views.generic.detail import DetailView
 from django.views.generic.edit import CreateView,UpdateView,DeleteView
 from django.urls import reverse_lazy
-from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
+from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth import login, logout, authenticate
-from AppCoder.forms import CursoFormulario,ProfesoresFormulario,EstudiantesFormulario,BuscaCursoForm,UserRegisterForm
-from AppCoder.models import Curso,Profesor,Estudiante
+from AppCoder.forms import CursoFormulario,ProfesoresFormulario,EstudiantesFormulario,BuscaCursoForm,UserRegisterForm,UserEditForm
+from AppCoder.models import Curso,Profesor,Estudiante,Avatar
 from django.contrib.auth.decorators import login_required
 
 
@@ -214,7 +214,51 @@ def register(request):
       return render(request,"AppCoder/registro.html" , {"form":form})
 
 def inicio(request):
-      return render(request, "AppCoder/inicio.hmtl")
+      return render(request, "AppCoder/inicio.html")
 
-#chequear esto manana
-# class ClaseQueNecesitaLogin (LoginRequiredMixin):
+
+@login_required
+def inicio(request):
+      avatares = Avatar.objects.filter(user=request.user.id)
+      return render(request, "AppCoder/padre.html",{"url":avatares[0].imagen.url})
+
+@login_required
+def editarPerfil(request):
+      usuario = request.user
+
+      if request.method =="POST":
+            miFormulario = UserEditForm(request.POST)
+            if miFormulario.is_valid():
+                  informacion = miFormulario.cleaned_data
+
+                  usuario.email = informacion ['email']
+                  usuario.password1 = informacion['password1']
+                  usuario.password2 = informacion['password1']
+                  usuario.save()
+                  return render(request, "AppCoder/inicio.html")
+      else:
+            miFormulario = UserEditForm(initial = { 'email':usuario.email})
+      return render(request, "AppCoder/editarPerfil.html", {"miFormulario":miFormulario, "usuario":usuario})
+
+
+
+@login_required
+
+def agregarAvatar(request):
+      if request.method =="POST":
+            miFormulario = AvatarFormulario(request.POST, request.FILES)
+
+            if miFormulario.is_valid:
+                  u = User.objects.get(username = request.user)
+                  avatar = Avatar(user = u,imagen= miFormulario.cleaned_data['imagen'])
+                  avatar.save
+                  return render(request, "AppCoder/inicio.html")
+      else:
+            miFormulario = AvatarFormulario()
+      return render(request, "AppCoder/agregarAvatar.html",{"miFormulario":miFormulario})
+
+
+
+
+
+
