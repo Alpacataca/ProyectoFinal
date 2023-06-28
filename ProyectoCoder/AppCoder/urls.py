@@ -9,7 +9,6 @@ urlpatterns = [
     path('profesores', views.profesores, name="Profesores"),
     path('estudiantes', views.estudiantes, name="Estudiantes"),
     path('busquedaCurso', views.buscar_curso, name = "BusquedaCurso"),
-    path('leerProfesores', views.leerProfesores, name = "LeerProfesores"),
 #CRUD CURSO
     path('curso/list', views.CursoList.as_view(),name = 'cursoList'),
     path(r'^(?P<pk>\d+)$',views.CursoDetalle.as_view(),name='cursoDetail'),

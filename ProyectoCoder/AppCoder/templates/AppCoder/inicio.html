@@ -18,10 +18,14 @@
         <nav class="navbar navbar-light bg-light static-top">
             <div class="container">
                 <a class="navbar-brand" href="{% url 'Inicio' %}">Inicio</a>
-                <a class="navbar-brand" href="{% url 'Profesores' %}">Profesores</a>
-                <a class="navbar-brand" href="{% url 'Cursos' %}">Cursos</a>
-                <a class="navbar-brand" href="{% url 'Estudiantes' %}">Estudiantes</a>
+                <a class="navbar-brand" href="{% url 'Profesores' %}">Agregar profes</a>
+                <a class="navbar-brand" href="{% url 'Cursos' %}">Agregar cursos</a>
+                <a class="navbar-brand" href="{% url 'Estudiantes' %}">Agregar estudiantes</a>
+                <a class="navbar-brand" href="{% url 'cursoList' %}">Lista cursos</a>
+                <a class="navbar-brand" href="{% url 'estudianteList' %}">Lista de estudiantes</a>
+                <a class="navbar-brand" href="{% url 'profesorList' %}">Lista de profes</a>
                 <a class="navbar-brand" href="{% url 'BusquedaCurso' %}">Busqueda Cursos</a>
+                
             </div>
 </nav>
 
