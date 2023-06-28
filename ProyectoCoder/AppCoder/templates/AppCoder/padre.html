@@ -33,6 +33,7 @@
                 <img src = "{{ request.user.avatar.imagen.url }}" style="width: 60px; height:50px;" class="rounded-circle img-fluid" />
                 <p class = "text-muted small mb-4 mb-lg-0"> Hola, {{user.username}}!</p>
                 <a class="btn btn-primary" href ="{%url 'Logout' %}">LOG OUT</a>
+                <a class="list-inline-item"><a href="{% url 'AgregarAvatar' %}">Cambia tu avatar! </a>
                 {% endif %}
             </div>
 </nav>

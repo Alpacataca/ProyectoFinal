@@ -7,7 +7,7 @@ from django.views.generic.edit import CreateView,UpdateView,DeleteView
 from django.urls import reverse_lazy
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth import login, logout, authenticate
-from AppCoder.forms import CursoFormulario,ProfesoresFormulario,EstudiantesFormulario,BuscaCursoForm,UserRegisterForm,UserEditForm
+from AppCoder.forms import CursoFormulario,ProfesoresFormulario,EstudiantesFormulario,BuscaCursoForm,UserRegisterForm,UserEditForm,AvatarFormulario
 from AppCoder.models import Curso,Profesor,Estudiante,Avatar
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
@@ -245,17 +245,23 @@ def editarPerfil(request):
 
 @login_required
 def agregarAvatar(request):
-      if request.method =="POST":
-            miFormulario = AvatarFormulario(request.POST, request.FILES)
+    if request.method == "POST":
+        miFormulario = AvatarFormulario(request.POST, request.FILES)
 
-            if miFormulario.is_valid:
-                  u = User.objects.get(username = request.user)
-                  avatar = Avatar(user = u,imagen= miFormulario.cleaned_data['imagen'])
-                  avatar.save
-                  return render(request, "AppCoder/inicio.html")
-      else:
-            miFormulario = AvatarFormulario()
-      return render(request, "AppCoder/agregarAvatar.html",{"miFormulario":miFormulario})
+        if miFormulario.is_valid():
+            avatar_anterior = Avatar.objects.filter(user=request.user)
+            if (len(avatar_anterior) > 0):
+                avatar_anterior.delete()
+            # avatar_nuevo = Avatar(user = request.user, imagen = form.cleaned_data["imagen"])
+            # avatar_nuevo.save()
+            u = User.objects.get(username=request.user)
+            avatar_nuevo = Avatar(
+                user=u, imagen=miFormulario.cleaned_data['imagen'])
+            avatar_nuevo.save()
+            return render(request, "AppCoder/inicio.html")
+    else:
+        miFormulario = AvatarFormulario()
+    return render(request, "AppCoder/agregarAvatar.html", {"miFormulario": miFormulario})
 
 
 

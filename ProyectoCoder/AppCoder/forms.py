@@ -3,7 +3,7 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 
 
-
+from .models import Avatar
 
 
 class CursoFormulario(forms.Form):
@@ -50,3 +50,7 @@ class UserEditForm(UserCreationForm):
         model = User
         fields = ['email', 'password1', 'password2', 'last_name', 'first_name']
 
+class AvatarFormulario(forms.ModelForm):
+    class Meta:
+        model = Avatar
+        fields = ['imagen']
