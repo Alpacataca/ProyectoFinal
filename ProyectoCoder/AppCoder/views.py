@@ -110,17 +110,17 @@ class CursoDetalle(DetailView):
 
 class CursoCreacion(CreateView):
       model = Curso
-      success_url = reverse_lazy("/AppCoder/curso/list")
+      success_url = reverse_lazy("cursoList")
       fields = ['nombre','camada']
 
 class CursoUpdate(UpdateView):
       model = Curso
-      success_url = reverse_lazy("/AppCoder/curso/list")
+      success_url = reverse_lazy("cursoList")
       fields = ['nombre','camada']
 
 class CursoDelete(DeleteView):
       model= Curso
-      success_url=reverse_lazy("/AppCoder/curso/list")
+      success_url=reverse_lazy("cursoList")
 
 
 
@@ -243,7 +243,6 @@ def editarPerfil(request):
 
 
 @login_required
-
 def agregarAvatar(request):
       if request.method =="POST":
             miFormulario = AvatarFormulario(request.POST, request.FILES)
