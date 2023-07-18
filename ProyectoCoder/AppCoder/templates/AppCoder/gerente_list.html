@@ -1,0 +1,21 @@
+{% extends "AppCoder/padre.html" %}
+{% load static %}
+{% block contenidoQueCambia %}
+    <title>Gerente List</title>
+</head>
+<body>
+    <h1>Gerentes de ESCO</h1>
+    <ul>
+        {% for gerente in object_list %}
+        <li>
+            <p>NOMBRE: {{gerente.nombre}}</p>
+            <p>
+                <a href = "{% url 'gerenteDetail' gerente.id %}">Ver</a>
+                <a href = "{% url 'gerenteEdit' gerente.id %}">Editar</a>
+                <a href = "{% url 'gerenteDelete' gerente.id %}">Borrar</a>
+            </p>
+        </li>
+        {% endfor %}
+    </ul>
+</body>
+{% endblock %}

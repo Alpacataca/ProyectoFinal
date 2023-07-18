@@ -1,0 +1,13 @@
+{% extends "AppCoder/padre.html" %}
+{% load static %}
+{% block contenidoQueCambia %}
+    <title>Equipo Detalle</title>
+</head>
+<body>
+    <p> Nombre del Equipo: <i> {{ equipo.nombre }}</i></p>
+    <p>Camada: <i>{{ equipo.camada }}</i></p>
+    <p>
+        <a href = "{% url 'equipoList' %}">Regresar</a>
+    </p>
+</body>
+{% endblock %}

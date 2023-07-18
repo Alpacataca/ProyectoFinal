@@ -1,0 +1,15 @@
+{% extends "AppCoder/padre.html" %}
+{% load static %}
+{% block contenidoQueCambia %}
+    <title>Gerente Detalle</title>
+</head>
+<body>
+    <p> Nombre del gerente: <i> {{ gerente.nombre }}</i></p>
+    <p>Apellido: <i>{{ gerente.apellido }}</i></p>
+    <p>Profesion: <i>{{ gerente.profesion}}</i></p>
+    <p>Mail: <i>{{ gerente.mail }}</i></p>
+    <p>
+        <a href = "{% url 'gerenteList' %}">Regresar</a>
+    </p>
+</body>
+{% endblock %}

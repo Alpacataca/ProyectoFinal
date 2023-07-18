@@ -18,13 +18,13 @@
         <nav class="navbar navbar-light bg-light static-top">
             <div class="container">
                 <a class="navbar-brand" href="{% url 'Inicio' %}">Inicio</a>
-                <a class="navbar-brand" href="{% url 'Profesores' %}">Agregar profes</a>
-                <a class="navbar-brand" href="{% url 'Cursos' %}">Agregar cursos</a>
-                <a class="navbar-brand" href="{% url 'Estudiantes' %}">Agregar estudiantes</a>
-                <a class="navbar-brand" href="{% url 'cursoList' %}">Lista cursos</a>
-                <a class="navbar-brand" href="{% url 'estudianteList' %}">Lista de estudiantes</a>
-                <a class="navbar-brand" href="{% url 'profesorList' %}">Lista de profes</a>
-                <a class="navbar-brand" href="{% url 'BusquedaCurso' %}">Busqueda Cursos</a>
+                <a class="navbar-brand" href="{% url 'Gerentes' %}">Agregar gerentes</a>
+                <a class="navbar-brand" href="{% url 'Equipos' %}">Agregar equipos</a>
+                <a class="navbar-brand" href="{% url 'Empleados' %}">Agregar empleados</a>
+                <a class="navbar-brand" href="{% url 'equipoList' %}">Lista equipos</a>
+                <a class="navbar-brand" href="{% url 'empleadoList' %}">Lista de empleados</a>
+                <a class="navbar-brand" href="{% url 'gerenteList' %}">Lista de gerentes</a>
+                <a class="navbar-brand" href="{% url 'BusquedaEquipo' %}">Busqueda equipos de trabajo</a>
                 {% if not request.user.is_authenticated %}
                 <a class="btn btn-primary" href ="{%url 'Login' %}">LOG IN</a>
                 <a class="btn btn-primary" href ="{%url 'Register' %}">Registrate</a>
@@ -48,7 +48,7 @@
                     <div class="col-xl-6">
                         <div class="text-center text-white">
                             <!-- Page heading-->
-                            <h1 class="mb-5">Aplicacion de asignacion y busqueda de cursos, profesores y estudiantes de Coderhouse en una base de datos</h1>
+                            <h1 class="mb-5">Aplicacion de asignacion y busqueda de equipos de trabajo, gerentes y empleados de Sistemas ESCO en una base de datos</h1>
                             </form>
                         </div>
                     </div>

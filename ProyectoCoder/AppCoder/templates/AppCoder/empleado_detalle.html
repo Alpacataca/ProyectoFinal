@@ -1,0 +1,13 @@
+{% extends "AppCoder/padre.html" %}
+{% load static %}
+{% block contenidoQueCambia %}
+    <title>Empleado Detalle</title>
+</head>
+<body>
+    <p> Nombre del empleado: <i> {{ empleado.nombre }}</i></p>
+    <p>Apellido: <i>{{ empleado.apellido }}</i></p>
+    <p>
+        <a href = "{% url 'empleadoList' %}">Regresar</a>
+    </p>
+</body>
+{% endblock %}

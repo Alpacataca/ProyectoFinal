@@ -1,9 +1,9 @@
 {% extends "AppCoder/padre.html" %}
 {% load static %}
 {% block contenidoQueCambia %}
-{% for curso in cursos %}
+{% for equipo in equipos %}
 
-    <p>Curso: {{ curso.nombre }}</p>
-    <p>Camada: {{ curso.camada }}</p>
+    <p>Equipo: {{ equipo.nombre }}</p>
+    <p>Camada: {{ equipo.camada }}</p>
 {% endfor %}
 {% endblock %}

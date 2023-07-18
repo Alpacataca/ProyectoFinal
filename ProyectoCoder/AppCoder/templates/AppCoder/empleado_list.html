@@ -1,0 +1,21 @@
+{% extends "AppCoder/padre.html" %}
+{% load static %}
+{% block contenidoQueCambia %}
+    <title>Empleado List</title>
+</head>
+<body>
+    <h1>Empleados de Sistemas ESCO</h1>
+    <ul>
+        {% for empleado in object_list %}
+        <li>
+            <p>NOMBRE: {{empleado.nombre}}</p>
+            <p>
+                <a href = "{% url 'empleadoDetail' empleado.id %}">Ver</a>
+                <a href = "{% url 'empleadoEdit' empleado.id %}">Editar</a>
+                <a href = "{% url 'empleadoDelete' empleado.id %}">Borrar</a>
+            </p>
+        </li>
+        {% endfor %}
+    </ul>
+</body>
+{% endblock %}

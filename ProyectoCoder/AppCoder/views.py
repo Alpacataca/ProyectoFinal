@@ -7,8 +7,8 @@ from django.views.generic.edit import CreateView,UpdateView,DeleteView
 from django.urls import reverse_lazy
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth import login, logout, authenticate
-from AppCoder.forms import CursoFormulario,ProfesoresFormulario,EstudiantesFormulario,BuscaCursoForm,UserRegisterForm,UserEditForm,AvatarFormulario
-from AppCoder.models import Curso,Profesor,Estudiante,Avatar
+from AppCoder.forms import EquipoFormulario,GerenteFormulario,EmpleadosFormulario,BuscaEquipoForm,UserRegisterForm,UserEditForm,AvatarFormulario
+from AppCoder.models import Equipo,Gerente,Empleado,Avatar
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -16,160 +16,162 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 def inicio(request):
     return render(request,"AppCoder/inicio.html")
 @login_required
-def curso(request):
-    return render(request,'AppCoder/cursos.html')
+def equipo(request):
+    return render(request,'AppCoder/equipo.html')
 @login_required
-def profesores(request):
-    return render(request,'AppCoder/profesores.html')
+def gerentes(request):
+    return render(request,'AppCoder/gerente.html')
 @login_required
-def estudiantes(request):
-    return render(request,'AppCoder/estudiantes.html')
+def empleados(request):
+    return render(request,'AppCoder/empleados.html')
 @login_required
 def acercademi(request):
       return render(request,'AppCoder/acercademi.html')
 @login_required
-def cursos(request):
+def equipo(request):
  
       if request.method == "POST":
-            miFormulario = CursoFormulario(request.POST) # Aqui me llega la informacion del html
+            miFormulario = EquipoFormulario(request.POST) # Aqui me llega la informacion del html
             print(miFormulario)
             if miFormulario.is_valid():
                   informacion = miFormulario.cleaned_data
-                  curso = Curso(nombre=informacion['curso'], camada=informacion['camada'])
-                  curso.save()
+                  equipo = Equipo(nombre=informacion['nombre'], camada=informacion['camada'])
+                  equipo.save()
                   return render(request, "AppCoder/inicio.html")
       else:
-            miFormulario = CursoFormulario()
+            miFormulario = EquipoFormulario()
  
-      return render(request, "AppCoder/cursos.html", {"miFormulario": miFormulario})
+      return render(request, "AppCoder/equipo.html", {"miFormulario": miFormulario})
 
 @login_required
-def profesores(request):
+def gerentes(request):
  
       if request.method == "POST":
-            miFormulario = ProfesoresFormulario(request.POST)
+            miFormulario = GerenteFormulario(request.POST)
             print(miFormulario)
             if miFormulario.is_valid():
                   informacion = miFormulario.cleaned_data
-                  profesor = Profesor(nombre=informacion["nombre"], apellido=informacion["apellido"], profesion=informacion["profesion"], mail = informacion["mail"])
-                  profesor.save()
+                  gerente = Gerente(nombre=informacion["nombre"], apellido=informacion["apellido"], profesion=informacion["profesion"], mail = informacion["mail"])
+                  gerente.save()
                   return render(request, "AppCoder/inicio.html")
       else:
-            miFormulario = ProfesoresFormulario()
+            miFormulario = GerenteFormulario()
  
-      return render(request, "AppCoder/profesores.html", {"miFormulario": miFormulario})
+      return render(request, "AppCoder/gerente.html", {"miFormulario": miFormulario})
 @login_required
-def estudiantes(request):
+def empleados(request):
  
       if request.method == "POST":
-            miFormulario = EstudiantesFormulario(request.POST)
+            miFormulario = EmpleadosFormulario(request.POST)
             print(miFormulario)
             if miFormulario.is_valid():
                   informacion = miFormulario.cleaned_data
-                  estudiante = Estudiante(nombre=informacion['nombre'], apellido=informacion['apellido'])
-                  estudiante.save()
+                  empleado = Empleado(nombre=informacion['nombre'], apellido=informacion['apellido'])
+                  empleado.save()
                   return render(request, "AppCoder/inicio.html")
       else:
-            miFormulario = EstudiantesFormulario()
+            miFormulario = EmpleadosFormulario()
  
-      return render(request, "AppCoder/estudiantes.html", {"miFormulario": miFormulario})
+      return render(request, "AppCoder/empleado.html", {"miFormulario": miFormulario})
 
 @login_required
-def busquedacamada(request):
-      return render(request, "AppCoder/busquedaCamada.html")
+def busquedaequipo(request):
+      return render(request, "AppCoder/busquedaEquipo.html")
 @login_required
 def buscar(request):
       if request.GET:
-            camada = request.GET['camada']
-            cursos = Curso.objects.filter(camada__icontains=camada)
+            camada = request.GET['nombre']
+            equipo = Equipo.objects.filter(nombre__icontains=equipo)
 
-            return render(request, "AppCoder/resultadosPorBusqueda.html",{"cursos":cursos, "camada":camada})
+            return render(request, "AppCoder/resultadosPorBusqueda.html",{"nombre":equipo, "camada":camada})
       else:
             respuesta = "No se asignaron datos a la casilla"
 
       return render(request,"AppCoder/inicio.html", {"respuesta":respuesta})
 @login_required
-def buscar_curso(request):
+def buscar_equipo(request):
       if request.method=="POST":
-            busca_curso = BuscaCursoForm(request.POST)
+            busca_equipo = BuscaEquipoForm(request.POST)
             
-            if busca_curso.is_valid():
-                  info = busca_curso.cleaned_data
-                  cursos = Curso.objects.filter(nombre=info['curso'])
-                  return render(request,"AppCoder/lista.html",{"cursos":cursos})
+            if busca_equipo.is_valid():
+                  info = busca_equipo.cleaned_data
+                  equipos = Equipo.objects.filter(nombre=info['equipo'])
+                  return render(request,"AppCoder/lista.html",{"equipos":equipos})
       else:
-            busca_curso = BuscaCursoForm()
-            return render(request,"AppCoder/buscar_curso.html", {"miFormulario": busca_curso})
+            busca_equipo = BuscaEquipoForm()
+            return render(request,"AppCoder/buscar_equipo.html", {"miFormulario": busca_equipo})
 
 
 
-class CursoList(ListView):
-      model = Curso
-      template_name = "AppCoder/cursos_list.html"
+class EquipoList(ListView):
+      model = Equipo
+      template_name = "AppCoder/equipo_list.html"
 
-class CursoDetalle(DetailView):
-      model = Curso
-      template_name ="AppCoder/curso_detalle.html"
+class EquipoDetalle(DetailView):
+      model = Equipo
+      template_name ="AppCoder/equipo_detalle.html"
 
-class CursoCreacion(CreateView):
-      model = Curso
-      success_url = reverse_lazy("cursoList")
+class EquipoCreacion(CreateView):
+      model = Equipo
+      success_url = reverse_lazy("equipoList")
       fields = ['nombre','camada']
 
-class CursoUpdate(UpdateView):
-      model = Curso
-      success_url = reverse_lazy("cursoList")
+class EquipoUpdate(UpdateView):
+      model = Equipo
+      success_url = reverse_lazy("equipoList")
       fields = ['nombre','camada']
 
-class CursoDelete(DeleteView):
-      model= Curso
-      success_url=reverse_lazy("cursoList")
+class EquipoDelete(DeleteView):
+      model= Equipo
+      success_url=reverse_lazy("equipoList")
 
 
 
-class EstudianteList(ListView):
-      model = Estudiante
-      template_name = "AppCoder/estudiante_list.html"
+class EmpleadoList(ListView):
+      model = Empleado
+      template_name = "AppCoder/empleado_list.html"
 
-class EstudianteDetalle(DetailView):
-      model = Estudiante
-      template_name ="AppCoder/estudiante_detalle.html"
+class EmpleadoDetalle(DetailView):
+      model = Empleado
+      template_name ="AppCoder/empleado_detalle.html"
 
-class EstudianteCreacion(CreateView):
-      model = Estudiante
-      success_url = reverse_lazy("estudianteList")
+class EmpleadoCreacion(CreateView):
+      model = Empleado
+      success_url = reverse_lazy("empleadoList")
       fields = ['nombre','apellido']
 
-class EstudianteUpdate(UpdateView):
-      model = Estudiante
-      success_url = reverse_lazy("estudianteList")
+class EmpleadoUpdate(UpdateView):
+      model = Empleado
+      success_url = reverse_lazy("empleadoList")
       fields = ['nombre','apellido']
 
-class EstudianteDelete(DeleteView):
-      model= Estudiante
-      success_url=reverse_lazy("estudianteList")
+class EmpleadoDelete(DeleteView):
+      model= Empleado
+      success_url=reverse_lazy("empleadoList")
 
-class ProfesorList(ListView):
-      model = Profesor
-      template_name = "AppCoder/profesor_list.html"
 
-class ProfesorDetalle(DetailView):
-      model = Profesor
-      template_name ="AppCoder/profesor_detalle.html"
 
-class ProfesorCreacion(CreateView):
-      model = Profesor
-      success_url = reverse_lazy("profesorList")
+class GerenteList(ListView):
+      model = Gerente
+      template_name = "AppCoder/gerente_list.html"
+
+class GerenteDetalle(DetailView):
+      model = Gerente
+      template_name ="AppCoder/gerente_detalle.html"
+
+class GerenteCreacion(CreateView):
+      model = Gerente
+      success_url = reverse_lazy("gerenteList")
       fields = ['nombre','apellido','profesion','mail']
 
-class ProfesorUpdate(UpdateView):
-      model = Profesor
-      success_url = reverse_lazy("profesorList")
+class GerenteUpdate(UpdateView):
+      model = Gerente
+      success_url = reverse_lazy("gerenteList")
       fields = ['nombre','apellido','profesion','mail']
 
-class ProfesorDelete(DeleteView):
-      model= Profesor
-      success_url=reverse_lazy("profesorList")
+class GerenteDelete(DeleteView):
+      model= Gerente
+      success_url=reverse_lazy("gerenteList")
 
 def login_request(request):
 

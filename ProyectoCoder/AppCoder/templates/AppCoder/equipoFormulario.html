@@ -4,11 +4,11 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Formulario - Agregar Curso</title>
+    <title>Formulario - Agregar equipo</title>
 </head>
 <body>
-    <form action="/cursoFormulario/"    method="post">{% csrf_token %}
-        <p> Curso: <input type = "text" name="curso">
+    <form action="/equipoFormulario/"    method="post">{% csrf_token %}
+        <p> Nombre: <input type = "text" name="nombre">
         <p> Camada: <input type = "text" name="camada">
         <input type = "submit" value="Enviar">
      </form>   

@@ -1,11 +1,11 @@
 {% extends "AppCoder/padre.html" %}
 {% load static %}
 {% block contenidoQueCambia %}
-    <title>Profesor Borrar</title>
+    <title>Equipo Borrar</title>
 </head>
 <body>
     <form method ="post">{% csrf_token %}
-        Estas seguro que deseas borrar el profesor "{{object}}"?
+        Estas seguro que deseas borrar el equipo "{{object}}"?
         <input type ="submit" value = "Submit"/>
     </form>
 </body>
